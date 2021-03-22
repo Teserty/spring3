@@ -1,5 +1,6 @@
 package com.teserty.spring3.enities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@Builder
 @Data
 public class Shop {
     @Id

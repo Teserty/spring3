@@ -6,6 +6,7 @@ import com.teserty.spring3.repositories.RoleRepository;
 import com.teserty.spring3.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Configurable
@@ -26,6 +25,12 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RolesService rolesService;
+    @Autowired
+    public void setRolesService(RolesService rolesService) {
+        this.rolesService = rolesService;
+    }
+
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -40,13 +45,12 @@ public class UserService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
 
-        if (user == null) {
+        if (!user.isPresent()) {
             throw new UsernameNotFoundException("User not found");
         }
-
-        return user;
+        return user.get();
     }
     public void setUserIsLocked(Long id, boolean isLocked){
         Optional<User> user = userRepository.findById(id);
@@ -55,9 +59,8 @@ public class UserService implements UserDetailsService {
             userRepository.save(user.get());
         }
     }
-    public User findUserById(Long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+    public Optional<User> findUserById(Long userId) {
+        return userRepository.findById(userId);
     }
 
     public List<User> allUsers() {
@@ -65,8 +68,8 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-        if (userFromDB != null) {
+        Optional<User> userFromDB = userRepository.findByUsername(user.getUsername());
+        if (!userFromDB.isPresent()) {
             return false;
         }
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
@@ -86,5 +89,34 @@ public class UserService implements UserDetailsService {
     public List<User> usergtList(Long idMin) {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
+    }
+    public User getCurrentUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            Optional<User> user = userRepository.findByUsername(((org.springframework.security.core.userdetails.User) principal).getUsername());
+            return user.orElse(null);
+        }
+        return null;
+
+    }
+
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    public boolean isUserWithUsernameExist(String username){
+        return findUserByUsername(username).isPresent();
+    }
+
+    public void createUser(String username, String password) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(rolesService.getRoleByName("USER"));
+        userRepository.save(User.builder()
+                .username(username)
+                .password(password)
+                .isLocked(false)
+                .isEnabled(true)
+                .passwordConfirm(bCryptPasswordEncoder.encode(password))
+                .roles(roles)
+                .build());
     }
 }

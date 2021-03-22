@@ -1,7 +1,7 @@
 package com.teserty.spring3.controllers;
 
-import com.teserty.spring3.enities.Shop;
-import com.teserty.spring3.repositories.ShopRepository;
+import com.teserty.spring3.enities.dto.ShopDTO;
+import com.teserty.spring3.services.ShopsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,22 +12,22 @@ import java.util.List;
 
 @RestController
 public class ShopsController {
-    private ShopRepository shopRepository;
+    private final ShopsService shopsService;
     @Autowired
-    public void setShopRepository(ShopRepository shopRepository) {
-        this.shopRepository = shopRepository;
+    public ShopsController(ShopsService shopsService) {
+        this.shopsService = shopsService;
     }
     @GetMapping("/shops/shop/{id}")
-    public Shop getShopById(@PathVariable Long id){
-        return shopRepository.findShopById(id);
+    public ShopDTO getShopById(@PathVariable Long id){
+        return shopsService.findShopById(id);
     }
     @GetMapping("/shops/{page}")
-    public List<Shop> getShopsPages(@PathVariable int page){
+    public List<ShopDTO> getShopsPages(@PathVariable int page){
         Pageable pageable = PageRequest.of(page, 20);
-        return shopRepository.findAll(pageable);
+        return shopsService.findAll(pageable);
     }
-    @GetMapping("/shops/{name}")
-    public Shop getShopByName(@PathVariable String name){
-        return shopRepository.findByName(name);
+    @GetMapping("/shops/shop/{name}")
+    public ShopDTO getShopByName(@PathVariable String name){
+        return shopsService.findByName(name);
     }
 }

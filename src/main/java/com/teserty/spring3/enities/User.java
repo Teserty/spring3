@@ -1,5 +1,6 @@
 package com.teserty.spring3.enities;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
 @Table(name = "t_user")
 public class User implements UserDetails {
     @Id

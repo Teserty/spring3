@@ -1,1 +1,13 @@
 # spring3
+## API
+* /comment-item/{id}
+* /comment-shop/{id}
+* /feedback-item/{id}
+* /feedback-shop/{id}
+* /registration
+* /shops/shop/{id}
+* /shops/{page}
+* /shops/shop/{name}
+* /items/item/{id}
+* /items/{page}
+* /items/item/{name}
