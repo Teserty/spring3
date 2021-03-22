@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 @Component
 public interface ShopRepository extends CrudRepository<Shop, Long> {
-    Shop findShopById(Long id);
     List<Shop> findAll(Pageable pageable);
     Shop findByName(String name);
 }

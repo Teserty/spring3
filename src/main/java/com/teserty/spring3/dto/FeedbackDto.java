@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities.dto;
+package com.teserty.spring3.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-public class FeedbackDTO implements Serializable {
+public class FeedbackDto implements Serializable {
     Integer rating;
-    private UserDTO author;
+    private String author;
 }

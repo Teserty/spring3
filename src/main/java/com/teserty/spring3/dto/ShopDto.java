@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities.dto;
+package com.teserty.spring3.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -10,9 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class ShopDTO implements Serializable {
+public class ShopDto implements Serializable {
     private String name;
-    private List<FeedbackDTO> feedBackList;
-    private List<CommentDTO> comments;
+    private List<FeedbackDto> feedBackList;
+    private List<CommentDto> comments;
     private String description;
 }

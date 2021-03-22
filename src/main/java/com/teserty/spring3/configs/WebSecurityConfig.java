@@ -1,6 +1,6 @@
 package com.teserty.spring3.configs;
 
-import com.teserty.spring3.services.UserService;
+import com.teserty.spring3.services.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,16 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-    private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    public void setUserService(UserService userService) {
+    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserServiceImp userService) {
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
-
-    private UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final UserServiceImp userService;
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder);

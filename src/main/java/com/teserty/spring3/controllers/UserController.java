@@ -1,15 +1,16 @@
 package com.teserty.spring3.controllers;
 
-import com.teserty.spring3.enities.dto.Response;
-import com.teserty.spring3.services.UserService;
+import com.teserty.spring3.dto.Response;
+import com.teserty.spring3.services.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImp userService;
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceImp userService) {
         this.userService = userService;
     }
 

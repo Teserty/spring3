@@ -1,36 +1,41 @@
 package com.teserty.spring3.controllers;
 
+import com.teserty.spring3.conventor.Converter;
+import com.teserty.spring3.dto.ItemDto;
+import com.teserty.spring3.dto.ShopDto;
 import com.teserty.spring3.enities.Item;
 import com.teserty.spring3.enities.Shop;
 import com.teserty.spring3.enities.User;
-import com.teserty.spring3.enities.dto.Response;
-import com.teserty.spring3.services.FeedbackService;
-import com.teserty.spring3.services.ItemService;
-import com.teserty.spring3.services.ShopsService;
-import com.teserty.spring3.services.UserService;
+import com.teserty.spring3.dto.Response;
+import com.teserty.spring3.services.ItemServiceImp;
+import com.teserty.spring3.services.ShopsServiceImp;
+import com.teserty.spring3.services.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    public AdminController(UserService userService, ShopsService shopsService, ItemService itemService) {
+    public AdminController(UserServiceImp userService, ShopsServiceImp shopsService, ItemServiceImp itemService, Converter converter) {
         this.userService = userService;
         this.shopsService = shopsService;
         this.itemService = itemService;
+        this.converter = converter;
     }
-    private final UserService userService;
-    private final ShopsService shopsService;
-    private final ItemService itemService;
-    @GetMapping("/admin")
+    private final UserServiceImp userService;
+    private final ShopsServiceImp shopsService;
+    private final ItemServiceImp itemService;
+    private final Converter converter;
+    @GetMapping("/")
     public List<User> userList() {
         return userService.allUsers();
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/")
     public Response adminUsers(@RequestParam(required = true, defaultValue = "" ) Long userId,
                                @RequestParam(required = true, defaultValue = "" ) String action) {
         switch (action){
@@ -50,28 +55,23 @@ public class AdminController {
         return new Response("400", "Действие не найдено");
     }
 
-    @GetMapping("/admin/gt/{userId}")
-    public List<User> gtUser(@PathVariable("userId") Long userId) {
-        return userService.usergtList(userId);
-    }
-
-    @PostMapping("/admin/create-item/{id}")
-    public Response createItem(@PathVariable Integer id){
-        for (int i = 0; i < id; i++)
-            itemService.createNewItem(Item.builder()
-                    .name("Test Object "+i)
-                    .description("Test Object " + " description")
-                    .price((i+1)*100)
+    @PostMapping("/create-items")
+    public Response createItems(@RequestBody ItemDto item){
+        itemService.createNewItem(
+                Item.builder()
+                    .name(item.getName())
+                    .description(item.getDescription())
+                    .price(new BigDecimal(item.getPrice()))
                     .build());
         return new Response("", "");
     }
-    @PostMapping("/admin/create-shops/{id}")
-    public Response createShops(@PathVariable Integer id){
-        for (int i = 0; i < id; i++)
-            shopsService.createNewShop(
-                    Shop.builder()
-                    .build()
-            );
+    @PostMapping("/create-shops")
+    public Response createShops(@RequestBody ShopDto shopDto){
+        shopsService.createNewShop(
+                Shop.builder()
+                        .name(shopDto.getName())
+                        .description(shopDto.getDescription())
+                        .build());
         return new Response("", "");
     }
 }

@@ -1,14 +1,12 @@
 package com.teserty.spring3;
 
-import com.teserty.spring3.services.DTOService;
-import com.teserty.spring3.services.UserService;
+
+import com.teserty.spring3.conventor.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class Spring3Application {
@@ -24,4 +22,6 @@ public class Spring3Application {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public Converter converter(){return new Converter();}
 }

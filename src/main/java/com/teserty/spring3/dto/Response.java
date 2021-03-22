@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities.dto;
+package com.teserty.spring3.dto;
 
 import lombok.Data;
 

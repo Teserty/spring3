@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Item {
     @ManyToOne
     private Shop shop;
     String description;
-    float price;
+    BigDecimal price;
     @OneToMany
     private List<Comment> comments;
     @OneToMany
