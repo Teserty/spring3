@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
 import lombok.Data;
 
@@ -9,9 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Basket {
-    @Id
-    private long id;
+public class Basket extends BaseEntity{
     private User owner;
     @ManyToMany
     private List<Item> itemsList;

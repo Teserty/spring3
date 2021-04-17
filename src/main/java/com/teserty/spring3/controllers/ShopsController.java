@@ -1,7 +1,7 @@
 package com.teserty.spring3.controllers;
 
 import com.teserty.spring3.dto.ShopDto;
-import com.teserty.spring3.enities.User;
+import com.teserty.spring3.entity.User;
 import com.teserty.spring3.services.CommentServiceImp;
 import com.teserty.spring3.services.FeedbackServiceImp;
 import com.teserty.spring3.services.ShopsServiceImp;

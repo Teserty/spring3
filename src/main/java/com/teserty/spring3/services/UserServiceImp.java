@@ -1,15 +1,13 @@
 package com.teserty.spring3.services;
 
-import com.teserty.spring3.enities.Role;
-import com.teserty.spring3.enities.User;
+import com.teserty.spring3.entity.Role;
+import com.teserty.spring3.entity.User;
 import com.teserty.spring3.repositories.RoleRepository;
 import com.teserty.spring3.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +46,9 @@ public class UserServiceImp extends UserDetailsServiceImp implements UserService
                 .passwordConfirm(bCryptPasswordEncoder.encode(password))
                 .roles(roles)
                 .build());
+    }
+
+    public Optional<User> getUserByUsername(String author) {
+        return userRepository.findByUsername(author);
     }
 }

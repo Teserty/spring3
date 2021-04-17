@@ -1,6 +1,6 @@
 package com.teserty.spring3.repositories;
 
-import com.teserty.spring3.enities.Shop;
+import com.teserty.spring3.entity.Shop;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;

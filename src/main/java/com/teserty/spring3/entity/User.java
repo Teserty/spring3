@@ -1,8 +1,7 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.BatchSize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

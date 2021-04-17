@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Builder
 @Getter
 @Setter
-public class FeedBack {
+public class FeedBack extends BaseEntity{
     @Id
     private String id;
     private Integer rating;

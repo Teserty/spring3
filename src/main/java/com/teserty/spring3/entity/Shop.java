@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Builder
 @Data
-public class Shop {
+public class Shop extends BaseEntity{
     @Id
     private long id;
     private String name;

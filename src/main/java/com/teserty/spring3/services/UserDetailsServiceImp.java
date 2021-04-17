@@ -1,10 +1,9 @@
 package com.teserty.spring3.services;
 
-import com.teserty.spring3.enities.Role;
-import com.teserty.spring3.enities.User;
+import com.teserty.spring3.entity.Role;
+import com.teserty.spring3.entity.User;
 import com.teserty.spring3.repositories.RoleRepository;
 import com.teserty.spring3.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

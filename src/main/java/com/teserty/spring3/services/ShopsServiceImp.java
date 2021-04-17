@@ -2,7 +2,7 @@ package com.teserty.spring3.services;
 
 import com.teserty.spring3.conventor.Converter;
 import com.teserty.spring3.dto.ShopDto;
-import com.teserty.spring3.enities.Shop;
+import com.teserty.spring3.entity.Shop;
 import com.teserty.spring3.repositories.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ShopsServiceImp implements ShopService{
+public class ShopsServiceImp implements ShopService {
     private final ShopRepository shopRepository;
     private final Converter converter;
     @Autowired

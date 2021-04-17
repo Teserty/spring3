@@ -1,12 +1,8 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.sql.Time;
 
@@ -15,9 +11,7 @@ import java.sql.Time;
 @Builder
 @Getter
 @Setter
-public class Comment {
-    @Id
-    private long id;
+public class Comment extends BaseEntity{
     private String text;
     @ManyToOne
     private User author;

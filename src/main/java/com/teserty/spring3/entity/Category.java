@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
 import lombok.Data;
 
@@ -8,9 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-public class Category {
-    @Id
-    private Long id;
+public class Category extends BaseEntity{
     @ManyToOne
     private Category grandCategory;
 }

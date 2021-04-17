@@ -1,6 +1,6 @@
 package com.teserty.spring3.services;
 
-import com.teserty.spring3.enities.Role;
+import com.teserty.spring3.entity.Role;
 import com.teserty.spring3.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.teserty.spring3.repositories;
 
-import com.teserty.spring3.enities.User;
+import com.teserty.spring3.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

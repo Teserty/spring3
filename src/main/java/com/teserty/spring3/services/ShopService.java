@@ -1,7 +1,7 @@
 package com.teserty.spring3.services;
 
 import com.teserty.spring3.dto.ShopDto;
-import com.teserty.spring3.enities.Shop;
+import com.teserty.spring3.entity.Shop;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

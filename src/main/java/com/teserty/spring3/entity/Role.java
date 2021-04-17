@@ -1,4 +1,4 @@
-package com.teserty.spring3.enities;
+package com.teserty.spring3.entity;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
