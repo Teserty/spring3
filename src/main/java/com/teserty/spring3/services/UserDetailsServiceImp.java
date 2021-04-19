@@ -31,8 +31,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
         }
         return user.get();
@@ -54,7 +53,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     public boolean saveUser(User user) {
         Optional<User> userFromDB = userRepository.findByUsername(user.getUsername());
-        if (!userFromDB.isPresent()) {
+        if (userFromDB.isEmpty()) {
             return false;
         }
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));

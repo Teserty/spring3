@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @Data
 public class Category extends BaseEntity{
+    private String categoryName;
     @ManyToOne
     private Category grandCategory;
 }

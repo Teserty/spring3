@@ -1,5 +1,7 @@
 package com.teserty.spring3.controllers;
 
+import com.teserty.spring3.conventor.Converter;
+import com.teserty.spring3.dto.Response;
 import com.teserty.spring3.dto.ShopDto;
 import com.teserty.spring3.entity.User;
 import com.teserty.spring3.services.CommentServiceImp;
@@ -23,15 +25,17 @@ public class ShopsController {
     private final UserServiceImp userService;
     private final CommentServiceImp commentService;
     private final FeedbackServiceImp feedbackService;
+    private final Converter converter;
     @Autowired
     public ShopsController(UserServiceImp userService,
                            FeedbackServiceImp feedbackService,
                            CommentServiceImp commentService,
-                           ShopsServiceImp shopsService) {
+                           ShopsServiceImp shopsService, Converter converter) {
         this.userService = userService;
         this.feedbackService = feedbackService;
         this.commentService = commentService;
         this.shopsService = shopsService;
+        this.converter = converter;
     }
     @GetMapping("/shop/{id}")
     public ShopDto getShopById(@PathVariable Long id){
@@ -57,5 +61,10 @@ public class ShopsController {
         String result = user.getUsername();
         System.out.print(result);
         return result;
+    }
+    @PostMapping("/new-shop")
+    public Response createNewShop(ShopDto shopDto){
+        shopsService.createNewShop(converter.convertFromDTO(shopDto));
+        return new Response("200", "OK");
     }
 }

@@ -38,17 +38,18 @@ public class UserServiceImp extends UserDetailsServiceImp implements UserService
     public void createUser(String username, String password) {
         Set<Role> roles = new HashSet<>();
         roles.add(rolesService.getRoleByName("USER"));
-        userRepository.save(User.builder()
+        User user = User.builder()
                 .username(username)
-                .password(password)
+                .password(bCryptPasswordEncoder.encode(password))
                 .isLocked(false)
                 .isEnabled(true)
                 .passwordConfirm(bCryptPasswordEncoder.encode(password))
                 .roles(roles)
-                .build());
+                .build();
+        userRepository.save(user);
     }
 
-    public Optional<User> getUserByUsername(String author) {
-        return userRepository.findByUsername(author);
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

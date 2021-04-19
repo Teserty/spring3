@@ -24,24 +24,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
         auth
                 .inMemoryAuthentication()
-                .withUser("admin").password("password").roles("USER", "ADMIN");
+                .withUser("user").password(passwordEncoder.encode("{noop}password")).roles("USER")
+                .and()
+                .withUser("admin").password(passwordEncoder.encode("{noop}admin")).roles("USER", "ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
+                .antMatchers("/login*").permitAll()
                 //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/registration").not().fullyAuthenticated()
+                .antMatchers("/users/**").permitAll()
                 //Доступ только для пользователей с ролью Администратор
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/items/new/item").hasRole("ADMIN")
                 //Доступ разрешен всем пользователей
+
                 .antMatchers("/shops/**","/items/**", "/resources/**").permitAll()
+                .antMatchers("/items/new/item").hasRole("ADMIN")
                 //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
+                .and().httpBasic()
                 .and().sessionManagement().disable()
+                .rememberMe()
+                    .alwaysRemember(true)
+                    .tokenValiditySeconds(60*60*24)
+                    .rememberMeCookieName("mouni")
+                    .key("somesecret")
+                .and()
+                .formLogin().disable()
                 .csrf().disable();
     }
-
 }

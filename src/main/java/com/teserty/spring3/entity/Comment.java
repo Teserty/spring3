@@ -9,6 +9,8 @@ import java.sql.Time;
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Comment extends BaseEntity{

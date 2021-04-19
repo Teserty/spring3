@@ -30,6 +30,8 @@ public class Converter {
                 .comments(convertCommentsToDto(item.getComments()))
                 .description(item.getDescription())
                 .price(item.getPrice().toString())
+                .shop(convertToDto(item.getShop()))
+                .name(item.getName())
                 .feedBackList(convertFeedBacksToDto(item.getFeedBackList()))
                 .build();
     }
@@ -87,6 +89,17 @@ public class Converter {
                 .description(itemDto.getDescription())
                 .price(BigDecimal.valueOf(Float.parseFloat(itemDto.getPrice())))
                 .comments(convertFromDtoToComments(itemDto.getComments()))
+                .build();
+    }
+
+    public List<ItemDto> convertToDto(List<Item> items) {
+        return items.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public Shop convertFromDTO(ShopDto shopDto) {
+        return Shop.builder()
+                .description(shopDto.getDescription())
+                .name(shopDto.getName())
                 .build();
     }
 }
