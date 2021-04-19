@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +37,14 @@ public class ShopsServiceImp implements ShopService {
     }
 
     public void createNewShop(Shop shop) {
+        shopRepository.save(shop);
+    }
+
+    public Optional<Shop> getById(Long valueOf) {
+        return shopRepository.findById(valueOf);
+    }
+
+    public void save(Shop shop) {
         shopRepository.save(shop);
     }
 }

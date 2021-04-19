@@ -102,4 +102,10 @@ public class Converter {
                 .name(shopDto.getName())
                 .build();
     }
+
+    public BasketDto convertToDto(Basket basket) {
+        return BasketDto.builder()
+                .itemDtos(convertToDto(basket.getItemsList()))
+                .build();
+    }
 }

@@ -37,4 +37,8 @@ public class ItemServiceImp implements ItemService {
     }
 
     public List<Item> getAll(){return itemRepository.findAll();}
+
+    public void save(Item item) {
+        itemRepository.save(item);
+    }
 }
