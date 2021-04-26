@@ -14,12 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Converter {
-    @Autowired
-    private UserServiceImp userService;
-    @Autowired
-    private CommentServiceImp commentService;
-    @Autowired
-    private FeedbackServiceImp feedbackService;
     public UserDto convertToDto(User user) {
         return UserDto.builder()
                 .username(user.getUsername())
@@ -67,14 +61,14 @@ public class Converter {
     public FeedBack convertFromDTO(FeedbackDto feedbackDto){
         return FeedBack.builder()
                 .rating(feedbackDto.getRating())
-                .author(userService.getUserByUsername(feedbackDto.getAuthor()).orElse(null))
+                .author(User.builder().username(feedbackDto.getAuthor()).build())
                 .build();
     }
     public Comment convertFromDTO(CommentDto commentDto){
         return Comment.builder()
                 .text(commentDto.getText())
                 .creationTime(commentDto.getTime())
-                .author(userService.getUserByUsername(commentDto.getAuthor()).orElse(null))
+                .author(User.builder().username(commentDto.getAuthor()).build())
                 .build();
     }
     public List<CommentDto> convertCommentsToDto(List<Comment> commentList) {

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -18,10 +20,12 @@ import java.util.List;
 public class Shop extends BaseEntity{
     @Id
     private long id;
+    @Size(min = 1)
     private String name;
     @OneToMany
     private List<FeedBack> feedBackList;
     @OneToMany
     private List<Comment> comments;
+    @Size(min = 1)
     private String description;
 }
